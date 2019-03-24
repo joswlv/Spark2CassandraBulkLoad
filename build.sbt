@@ -1,3 +1,4 @@
+import scalariform.formatter.preferences._
 
 /**
 * Organization:
@@ -41,3 +42,13 @@ libraryDependencies ++= Seq(sparkCore, sparkSql, sparkTest, scalaTest, ssc, cass
 * Tests:
 */
 parallelExecution in Test := false
+
+
+/**
+	* Scalariform:
+	*/
+scalariformPreferences := scalariformPreferences.value
+	.setPreference(RewriteArrowSymbols, false)
+	.setPreference(AlignParameters, true)
+	.setPreference(AlignSingleLineCaseStatements, true)
+	.setPreference(SpacesAroundMultiImports, true)
