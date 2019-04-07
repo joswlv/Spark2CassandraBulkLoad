@@ -21,7 +21,7 @@ scalaVersion := "2.11.12"
 
 // Versions:
 val SparkVersion                   = "2.3.2"
-val SparkTestVersion               = "2.3.2_0.11.0"
+val SparkTestVersion               = "2.3.1_0.10.0"
 val ScalaTestVersion               = "3.0.5"
 val SparkCassandraConnectorVersion = "2.3.2"
 val CassandraAllVersion            = "3.11.3"
@@ -43,12 +43,11 @@ libraryDependencies ++= Seq(sparkCore, sparkSql, sparkTest, scalaTest, ssc, cass
 */
 parallelExecution in Test := false
 
-
 /**
-	* Scalariform:
-	*/
+  * Scalariform:
+  */
 scalariformPreferences := scalariformPreferences.value
-	.setPreference(RewriteArrowSymbols, false)
-	.setPreference(AlignParameters, true)
-	.setPreference(AlignSingleLineCaseStatements, true)
-	.setPreference(SpacesAroundMultiImports, true)
+  .setPreference(RewriteArrowSymbols, false)
+  .setPreference(AlignParameters, true)
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(SpacesAroundMultiImports, true)

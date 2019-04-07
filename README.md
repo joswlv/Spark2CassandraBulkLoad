@@ -24,13 +24,29 @@ Spark2CassandraBulkLoad supports Spark 2.x and above.
 ## Downloads
 
 #### SBT
+To be upload.
 
 #### Maven
+To be upload.
 
 ## Usage
 
 ### Bulk Loading into Cassandra
 
 ```scala
+// Import the following to have access to the `bulkLoadToEs()` function for RDDs or DataFrames.
+import com.github.joswlv.spark.cassandra.bulk.rdd._
+import com.github.joswlv.spark.cassandra.bulk.sql._
 
+// Specify the `keyspaceName` and the `tableName` to write.
+rdd.bulkLoadToCass(
+  keyspaceName = "keyspaceName",
+  tableName = "tableName"
+)
+
+// Specify the `keyspaceName` and the `tableName` to write.
+df.bulkLoadToCass(
+  keyspaceName = "keyspaceName",
+  tableName = "tableName"
+)
 ```
