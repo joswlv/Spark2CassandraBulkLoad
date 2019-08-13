@@ -78,7 +78,7 @@ class SparkCassandraBulkWriter[T](
 
   private[cassandra] val insertTemplate: String = initializeInsertTemplate()
 
-  private[cassandra] val externalClientConfig: Configuration = {
+  private[cassandra] def externalClientConfig: Configuration = {
     val conf = new Configuration()
     conf.set("cassandra.output.thrift.address", sparkCassWriteConf.connectionHost)
     conf.set("cassandra.output.native.port", "" + sparkCassWriteConf.connectionsPort)
