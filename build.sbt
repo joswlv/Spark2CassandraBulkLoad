@@ -1,14 +1,14 @@
 import scalariform.formatter.preferences._
 
 /**
-* Organization:
-*/
-organization     := "com.github.joswlv"
+ * Organization:
+ */
+organization := "com.github.joswlv"
 organizationName := "SeungwanJo"
 
 /**
-* Library Meta:
-*/
+ * Library Meta:
+ */
 name := "Spark2CassandraBulkLoad"
 licenses := Seq(("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")))
 
@@ -16,38 +16,47 @@ version := "1.0.0"
 scalaVersion := "2.11.12"
 
 /**
-* Library Dependencies:
-*/
+ * Library Dependencies:
+ */
 
 // Versions:
-val SparkVersion                   = "2.3.2"
-val SparkTestVersion               = "2.3.1_0.10.0"
-val ScalaTestVersion               = "3.0.5"
-val SparkCassandraConnectorVersion = "2.3.2"
-val CassandraAllVersion            = "3.11.3"
-val CassandraUnitVersion           = "3.5.0.1"
+val sparkVersion = "[2.0, 3.0["
+val sparkTestVersion = "[2.0_0.12.0, 3.0["
+val scalaTestVersion = "3.1.0-RC1"
+val cassandraAllVersion = "[3.0, 4.0["
+val cassandraUnitVersion = "[3.0, 4.0["
 
 // Dependencies:
-val sparkCore       = "org.apache.spark"     %% "spark-core"                % SparkVersion                   % "provided"
-val sparkSql        = "org.apache.spark"     %% "spark-sql"                 % SparkVersion                   % "provided"
-val sparkTest       = "com.holdenkarau"      %% "spark-testing-base"        % SparkTestVersion               % "test"
-val scalaTest       = "org.scalatest"        %% "scalatest"                 % ScalaTestVersion               % "test"
-val ssc             = "com.datastax.spark"   %% "spark-cassandra-connector" % SparkCassandraConnectorVersion
-val cassandraAll    = "org.apache.cassandra" %  "cassandra-all"             % CassandraAllVersion
-val cassandraUnit   = "org.cassandraunit"    %  "cassandra-unit"            % CassandraUnitVersion           % "test"
+val sparkCore = "org.apache.spark" %% "spark-core" % sparkVersion % Provided
+val sparkSql = "org.apache.spark" %% "spark-sql" % sparkVersion % Provided
+val ssc = "com.datastax.spark" %% "spark-cassandra-connector" % sparkVersion
+val cassandraAll = "org.apache.cassandra" % "cassandra-all" % cassandraAllVersion
 
-libraryDependencies ++= Seq(sparkCore, sparkSql, sparkTest, scalaTest, ssc, cassandraAll, cassandraUnit)
+val sparkTest = "org.apache.spark" %% "spark-core" % sparkVersion % Test classifier "tests"
+val sparkSqlTest = "org.apache.spark" %% "spark-sql" % sparkVersion % Test classifier "tests"
+val catalystTest = "org.apache.spark" %% "spark-catalyst" % sparkVersion % Test classifier "tests"
+val scalaTest = "org.scalatest" %% "scalatest" % scalaTestVersion % Test
+val scalactic = "org.scalactic" %% "scalactic" % scalaTestVersion % Test
+val cassandraUnit = "org.cassandraunit" % "cassandra-unit" % cassandraUnitVersion % Test
+
+libraryDependencies ++= Seq(sparkCore, sparkSql, ssc, cassandraAll, sparkTest, sparkSqlTest, catalystTest, scalaTest, scalactic, cassandraUnit)
+excludeDependencies ++= Seq(
+  ExclusionRule("org.slf4j", "slf4j-log4j12")
+  , ExclusionRule("io.netty", "netty ")
+)
 
 /**
-* Tests:
-*/
+ * Tests:
+ */
 parallelExecution in Test := false
 
 /**
-  * Scalariform:
-  */
+ * Scalariform:
+ */
 scalariformPreferences := scalariformPreferences.value
   .setPreference(RewriteArrowSymbols, false)
   .setPreference(AlignParameters, true)
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(SpacesAroundMultiImports, true)
+
+scalariformAutoformat := true

@@ -1,9 +1,8 @@
 package com.github.joswlv.spark.cassandra.bulk.rdd
 
 import com.datastax.spark.connector.cql.CassandraConnector
-import com.datastax.spark.connector.mapper.ColumnMapper
-import com.datastax.spark.connector.writer.{DefaultRowWriter, RowWriterFactory}
-import com.datastax.spark.connector.{AllColumns, ColumnSelector}
+import com.datastax.spark.connector.writer.{ DefaultRowWriter, RowWriterFactory }
+import com.datastax.spark.connector.{ AllColumns, ColumnSelector }
 import com.github.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter
 import com.github.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
 import org.apache.spark.rdd.RDD
@@ -15,7 +14,7 @@ import scala.reflect.runtime.universe._
  *
  * @param rdd The [[RDD]] to lift into extension.
  */
-class SparkCassRDDFunctions[T: ColumnMapper: TypeTag](rdd: RDD[T]) extends Serializable {
+class SparkCassRDDFunctions[T: TypeTag](rdd: RDD[T]) extends Serializable {
   /**
    * SparkContext to schedule [[com.github.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter]] Tasks.
    */
@@ -37,17 +36,15 @@ class SparkCassRDDFunctions[T: ColumnMapper: TypeTag](rdd: RDD[T]) extends Seria
     keyspaceName:       String,
     tableName:          String,
     columns:            ColumnSelector     = AllColumns,
-    sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf)
-  )(implicit
+    sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit
     connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
-    rwf: RowWriterFactory[T] = DefaultRowWriter.factory[T]): Unit = {
+                                                                                                             rwf: RowWriterFactory[T] = DefaultRowWriter.factory[T]): Unit = {
     val sparkCassandraBulkWriter = SparkCassandraBulkWriter(
       connector,
       keyspaceName,
       tableName,
       columns,
-      sparkCassWriteConf
-    )
+      sparkCassWriteConf)
 
     internalSparkContext.runJob(rdd, sparkCassandraBulkWriter.write _)
   }
