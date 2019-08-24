@@ -33,11 +33,10 @@ class SparkCassRDDFunctions[T: TypeTag](rdd: RDD[T]) extends Serializable {
    * @param sparkCassWriteConf Configurations connection
    */
   def bulkLoadToCass(
-    keyspaceName:       String,
-    tableName:          String,
-    columns:            ColumnSelector     = AllColumns,
-    sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit
-    connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
+    keyspaceName: String,
+    tableName: String,
+    columns: ColumnSelector = AllColumns,
+    sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
                                                                                                              rwf: RowWriterFactory[T] = DefaultRowWriter.factory[T]): Unit = {
     val sparkCassandraBulkWriter = SparkCassandraBulkWriter(
       connector,

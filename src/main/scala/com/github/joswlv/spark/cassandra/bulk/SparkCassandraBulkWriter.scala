@@ -25,11 +25,11 @@ import org.apache.spark.internal.Logging
 import scala.collection.JavaConverters._
 
 class SparkCassandraBulkWriter[T](
-  cassandraConnector: CassandraConnector,
-  tableDef:           TableDef,
-  columnSelector:     IndexedSeq[ColumnRef],
-  rowWriter:          RowWriter[T],
-  sparkCassWriteConf: SparkCassWriteConf) extends Serializable with Logging {
+    cassandraConnector: CassandraConnector,
+    tableDef: TableDef,
+    columnSelector: IndexedSeq[ColumnRef],
+    rowWriter: RowWriter[T],
+    sparkCassWriteConf: SparkCassWriteConf) extends Serializable with Logging {
 
   val keyspaceName: String = tableDef.keyspaceName
   val tableName: String = tableDef.tableName
@@ -131,8 +131,8 @@ class SparkCassandraBulkWriter[T](
 
   private[cassandra] def writeRowsToSSTables(
     ssTableDirectory: File,
-    statement:        PreparedStatement,
-    data:             Iterator[T]): Unit = {
+    statement: PreparedStatement,
+    data: Iterator[T]): Unit = {
     val ssTableBuilder = CQLSSTableWriter.builder()
       .inDirectory(ssTableDirectory)
       .forTable(schemaTemplate)
@@ -259,10 +259,10 @@ object SparkCassandraBulkWriter {
   }
 
   def apply[T: RowWriterFactory](
-    connector:          CassandraConnector,
-    keyspaceName:       String,
-    tableName:          String,
-    columnNames:        ColumnSelector,
+    connector: CassandraConnector,
+    keyspaceName: String,
+    tableName: String,
+    columnNames: ColumnSelector,
     sparkCassWriteConf: SparkCassWriteConf): SparkCassandraBulkWriter[T] = {
     val schema = Schema.fromCassandra(connector, Some(keyspaceName), Some(tableName))
     val tableDef = schema.tables.headOption

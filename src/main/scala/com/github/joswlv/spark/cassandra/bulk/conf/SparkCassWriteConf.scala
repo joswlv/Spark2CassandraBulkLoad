@@ -18,15 +18,15 @@ import org.apache.spark.SparkConf
  * @param timestamp          The default timestamp value which is used when it is defined (in microseconds).
  */
 case class SparkCassWriteConf(
-  partitioner:        String          = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_PARTITIONER.default,
-  throughputMiBPS:    Int             = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_THROUGHPUT_MB_PER_SEC.default,
-  connectionsPerHost: Int             = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_CONNECTIONS_PER_HOST.default,
-  keySpaceUserName:   String          = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_KEYSPACE_USER_NAME.default,
-  keySpacePassword:   String          = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_KEYSTORE_PASSWORD.default,
-  connectionHost:     String          = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_CONNECTION_HOSTS.default,
-  connectionsPort:    Int             = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_CONNECTION_PORT.default,
-  ttl:                TTLOption       = TTLOption.defaultValue,
-  timestamp:          TimestampOption = TimestampOption.defaultValue) extends Serializable {
+    partitioner: String = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_PARTITIONER.default,
+    throughputMiBPS: Int = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_THROUGHPUT_MB_PER_SEC.default,
+    connectionsPerHost: Int = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_CONNECTIONS_PER_HOST.default,
+    keySpaceUserName: String = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_KEYSPACE_USER_NAME.default,
+    keySpacePassword: String = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_KEYSTORE_PASSWORD.default,
+    connectionHost: String = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_CONNECTION_HOSTS.default,
+    connectionsPort: Int = SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_CONNECTION_PORT.default,
+    ttl: TTLOption = TTLOption.defaultValue,
+    timestamp: TimestampOption = TimestampOption.defaultValue) extends Serializable {
   require(
     SparkCassWriteConf.AllowedPartitioners.contains(partitioner),
     s"Invalid value of spark.cassandra.bulk.write.partitioner: $partitioner. " +
