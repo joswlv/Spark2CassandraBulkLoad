@@ -35,8 +35,8 @@ To be upload.
 
 ```scala
 // Import the following to have access to the `bulkLoadToEs()` function for RDDs or DataFrames.
-import com.github.joswlv.spark.cassandra.bulk.rdd._
-import com.github.joswlv.spark.cassandra.bulk.sql._
+import com.joswlv.spark.cassandra.bulk.rdd._
+import com.joswlv.spark.cassandra.bulk.sql._
 
 // Specify the `keyspaceName` and the `tableName` to write.
 rdd.bulkLoadToCass(

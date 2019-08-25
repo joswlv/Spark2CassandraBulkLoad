@@ -1,11 +1,11 @@
-package com.github.joswlv.spark.cassandra.bulk.sql
+package com.joswlv.spark.cassandra.bulk.sql
 
 import com.datastax.spark.connector.cql.CassandraConnector
-import com.datastax.spark.connector.writer.{ RowWriterFactory, SqlRowWriter }
-import com.datastax.spark.connector.{ AllColumns, ColumnSelector }
-import com.github.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter
-import com.github.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
-import org.apache.spark.sql.{ DataFrame, Row }
+import com.datastax.spark.connector.writer.{RowWriterFactory, SqlRowWriter}
+import com.datastax.spark.connector.{AllColumns, ColumnSelector}
+import com.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter
+import com.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
+import org.apache.spark.sql.{DataFrame, Row}
 
 /**
  * Extension of [[DataFrame]] with [[bulkLoadToCass()]] function.
@@ -14,7 +14,7 @@ import org.apache.spark.sql.{ DataFrame, Row }
  */
 class SparkCassDataFrameFunctions(dataFrame: DataFrame) extends Serializable {
   /**
-   * SparkContext to schedule [[com.github.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter]] Tasks.
+   * SparkContext to schedule [[SparkCassandraBulkWriter]] Tasks.
    */
   private[sql] val internalSparkContext = dataFrame.sqlContext.sparkContext
 

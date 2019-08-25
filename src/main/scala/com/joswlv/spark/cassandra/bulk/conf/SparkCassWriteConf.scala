@@ -1,11 +1,11 @@
-package com.github.joswlv.spark.cassandra.bulk.conf
+package com.joswlv.spark.cassandra.bulk.conf
 
 import com.datastax.driver.core.DataType
-import com.datastax.spark.connector.cql.{ ColumnDef, RegularColumn }
+import com.datastax.spark.connector.cql.{ColumnDef, RegularColumn}
 import com.datastax.spark.connector.types.ColumnType
-import com.datastax.spark.connector.writer.{ PerRowWriteOptionValue, TTLOption, TimestampOption, WriteOption }
-import com.github.joswlv.spark.cassandra.bulk.util.SparkCassConfParam
-import org.apache.cassandra.dht.{ ByteOrderedPartitioner, IPartitioner, Murmur3Partitioner, RandomPartitioner }
+import com.datastax.spark.connector.writer.{PerRowWriteOptionValue, TTLOption, TimestampOption, WriteOption}
+import com.joswlv.spark.cassandra.bulk.util.SparkCassConfParam
+import org.apache.cassandra.dht.{ByteOrderedPartitioner, IPartitioner, Murmur3Partitioner, RandomPartitioner}
 import org.apache.spark.SparkConf
 
 /**

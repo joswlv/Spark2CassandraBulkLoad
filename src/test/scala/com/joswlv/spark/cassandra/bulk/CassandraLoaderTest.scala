@@ -1,7 +1,7 @@
-package com.github.joswlv.spark.cassandra.bulk
+package com.joswlv.spark.cassandra.bulk
 
-import com.github.joswlv.spark.cassandra.bulk.rdd._
-import com.github.joswlv.spark.cassandra.bulk.sql._
+import com.joswlv.spark.cassandra.bulk.rdd._
+import com.joswlv.spark.cassandra.bulk.sql._
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.test.SharedSparkSession

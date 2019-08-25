@@ -1,4 +1,4 @@
-package com.github.joswlv.spark.cassandra.bulk
+package com.joswlv.spark.cassandra.bulk
 
 import org.apache.spark.sql.DataFrame
 
