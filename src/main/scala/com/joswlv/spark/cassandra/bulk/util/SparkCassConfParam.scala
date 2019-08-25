@@ -1,4 +1,4 @@
-package com.github.joswlv.spark.cassandra.bulk.util
+package com.joswlv.spark.cassandra.bulk.util
 
 /**
  * Defines parameter to extract values from SparkConf.
