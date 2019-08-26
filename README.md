@@ -19,15 +19,30 @@ Spark2CassandraBulkLoad supports Spark 2.x and above.
 
 | Spark2Cassandra Version | Cassandra Version | JDK Version |
 | ------------------------| ----------------- | ----------- |
-| `1.0.X`                 | `3.0.0+`          | 1.8+        |
+| `1.X.X`                 | `3.0.0+`          | 1.8+        |
 
 ## Downloads
 
 #### SBT
-To be upload.
+
+```scala
+libraryDependencies += "com.joswlv.spark.cassandra.bulk" %% "Spark2CassandraBulkLoad" % "1.0.1"
+```
 
 #### Maven
-To be upload.
+```xml
+<dependency>
+	<groupId>com.joswlv.spark.cassandra.bulk</groupId>
+	<artifactId>Spark2CassandraBulkLoad</artifactId>
+	<version>1.0.1</version>
+</dependency>
+```
+
+### gradle
+
+```groovy
+compile 'com.joswlv.spark.cassandra.bulk:Spark2CassandraBulkLoad:1.0.1'
+```
 
 ## Usage
 
