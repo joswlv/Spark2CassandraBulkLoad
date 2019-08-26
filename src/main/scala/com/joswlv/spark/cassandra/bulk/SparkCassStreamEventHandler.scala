@@ -3,7 +3,7 @@ package com.joswlv.spark.cassandra.bulk
 import java.net.InetAddress
 
 import org.apache.cassandra.streaming.StreamEvent._
-import org.apache.cassandra.streaming.{SessionInfo, StreamEvent, StreamEventHandler, StreamState}
+import org.apache.cassandra.streaming.{ SessionInfo, StreamEvent, StreamEventHandler, StreamState }
 import org.slf4j.Logger
 
 import scala.collection.JavaConverters._
