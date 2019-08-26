@@ -5,17 +5,17 @@ import java.net.InetAddress
 import java.util.UUID
 
 import com.datastax.driver.core.PreparedStatement
-import com.datastax.spark.connector.cql.{CassandraConnector, ColumnDef, Schema, TableDef}
+import com.datastax.spark.connector.cql.{ CassandraConnector, ColumnDef, Schema, TableDef }
 import com.datastax.spark.connector.types.ColumnType
 import com.datastax.spark.connector.util.CountingIterator
 import com.datastax.spark.connector.util.Quote.quote
 import com.datastax.spark.connector.writer._
-import com.datastax.spark.connector.{CollectionColumnName, ColumnRef, ColumnSelector}
+import com.datastax.spark.connector.{ CollectionColumnName, ColumnRef, ColumnSelector }
 import com.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
 import com.joswlv.spark.cassandra.bulk.util.SparkCassException
 import org.apache.cassandra.config.DatabaseDescriptor
 import org.apache.cassandra.hadoop.cql3.CqlBulkRecordWriter
-import org.apache.cassandra.io.sstable.{CQLSSTableWriter, SSTableLoader}
+import org.apache.cassandra.io.sstable.{ CQLSSTableWriter, SSTableLoader }
 import org.apache.cassandra.utils.OutputHandler
 import org.apache.commons.io.FileUtils
 import org.apache.hadoop.conf.Configuration
@@ -38,7 +38,7 @@ class SparkCassandraBulkWriter[T](
 
   val defaultTTL: Option[Long] = sparkCassWriteConf.ttl match {
     case TTLOption(StaticWriteOptionValue(value)) => Some(value)
-    case _                                        => None
+    case _ => None
   }
 
   val defaultTimestamp: Option[Long] = sparkCassWriteConf.timestamp match {
