@@ -1,11 +1,11 @@
 package com.joswlv.spark.cassandra.bulk.conf
 
 import com.datastax.driver.core.DataType
-import com.datastax.spark.connector.cql.{ColumnDef, RegularColumn}
+import com.datastax.spark.connector.cql.{ ColumnDef, RegularColumn }
 import com.datastax.spark.connector.types.ColumnType
-import com.datastax.spark.connector.writer.{PerRowWriteOptionValue, TTLOption, TimestampOption, WriteOption}
+import com.datastax.spark.connector.writer.{ PerRowWriteOptionValue, TTLOption, TimestampOption, WriteOption }
 import com.joswlv.spark.cassandra.bulk.util.SparkCassConfParam
-import org.apache.cassandra.dht.{ByteOrderedPartitioner, IPartitioner, Murmur3Partitioner, RandomPartitioner}
+import org.apache.cassandra.dht.{ ByteOrderedPartitioner, IPartitioner, Murmur3Partitioner, RandomPartitioner }
 import org.apache.spark.SparkConf
 
 /**
@@ -101,6 +101,10 @@ object SparkCassWriteConf {
     name = "spark.cassandra.connection.port",
     default = 9042)
 
+  val SPARK_CASSANDRA_BULK_WRITE_TTL = SparkCassConfParam[Int](
+    name = "spark.cassandra.bulk.write.ttl",
+    default = Integer.MAX_VALUE)
+
   /**
    * Extracts [[SparkCassWriteConf]] from a [[SparkConf]].
    *
@@ -129,6 +133,9 @@ object SparkCassWriteConf {
     val tempConnectionsPort = sparkConf.getInt(
       SPARK_CASSANDRA_BULK_WRITE_CONNECTION_PORT.name,
       SPARK_CASSANDRA_BULK_WRITE_CONNECTION_PORT.default)
+    val tempTtl = sparkConf.getInt(
+      SPARK_CASSANDRA_BULK_WRITE_TTL.name,
+      SPARK_CASSANDRA_BULK_WRITE_TTL.default)
 
     require(
       AllowedPartitioners.contains(tempPartitioner),
@@ -142,6 +149,7 @@ object SparkCassWriteConf {
       keySpaceUserName = tempKeySpaceUserName,
       keySpacePassword = tempKeySpacePassword,
       connectionHost = tempConnectionHost,
-      connectionsPort = tempConnectionsPort)
+      connectionsPort = tempConnectionsPort,
+      ttl = if (tempTtl == SPARK_CASSANDRA_BULK_WRITE_TTL.default) TTLOption.defaultValue else TTLOption.constant(tempTtl))
   }
 }

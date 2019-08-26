@@ -1,8 +1,8 @@
 package com.joswlv.spark.cassandra.bulk.rdd
 
 import com.datastax.spark.connector.cql.CassandraConnector
-import com.datastax.spark.connector.writer.{DefaultRowWriter, RowWriterFactory}
-import com.datastax.spark.connector.{AllColumns, ColumnSelector}
+import com.datastax.spark.connector.writer.{ DefaultRowWriter, RowWriterFactory }
+import com.datastax.spark.connector.{ AllColumns, ColumnSelector }
 import com.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter
 import com.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
 import org.apache.spark.rdd.RDD
@@ -37,7 +37,7 @@ class SparkCassRDDFunctions[T: TypeTag](rdd: RDD[T]) extends Serializable {
     tableName: String,
     columns: ColumnSelector = AllColumns,
     sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
-                                                                                                             rwf: RowWriterFactory[T] = DefaultRowWriter.factory[T]): Unit = {
+      rwf: RowWriterFactory[T] = DefaultRowWriter.factory[T]): Unit = {
     val sparkCassandraBulkWriter = SparkCassandraBulkWriter(
       connector,
       keyspaceName,
