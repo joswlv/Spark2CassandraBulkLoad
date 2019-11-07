@@ -1,6 +1,6 @@
 # Spark2CassandraBulkLoad
 
-[![Build Status](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjoswlv%2FSpark2CassandraBulkLoad)](https://hits.seeyoufarm.com)[![Build Status](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)
 
 Spark Library for Bulk Loading into Cassandra
 
