@@ -35,7 +35,7 @@ class SparkCassDataFrameFunctions(dataFrame: DataFrame) extends Serializable {
     tableName: String,
     columns: ColumnSelector = AllColumns,
     sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
-      rwf: RowWriterFactory[Row] = SqlRowWriter.Factory): Unit = {
+                                                                                                             rwf: RowWriterFactory[Row] = SqlRowWriter.Factory): Unit = {
     val sparkCassandraBulkWriter = SparkCassandraBulkWriter(
       connector,
       keyspaceName,

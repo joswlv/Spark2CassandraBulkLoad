@@ -1,0 +1,15 @@
+language: scala
+
+scala: 2.11.12
+
+jdk: openjdk8
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.m2
+
+script:
+  - mvn clean install -Dgpg.skip=true
+  - bash <(curl -s https://codecov.io/bash)
