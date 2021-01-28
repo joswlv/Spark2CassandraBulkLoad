@@ -38,7 +38,7 @@ class SparkCassandraBulkWriter[T](
 
   val defaultTTL: Option[Long] = sparkCassWriteConf.ttl match {
     case TTLOption(StaticWriteOptionValue(value)) => Some(value)
-    case _                                        => None
+    case _ => None
   }
 
   val defaultTimestamp: Option[Long] = sparkCassWriteConf.timestamp match {

@@ -1,11 +1,11 @@
 package com.joswlv.spark.cassandra.bulk.sql
 
 import com.datastax.spark.connector.cql.CassandraConnector
-import com.datastax.spark.connector.writer.{RowWriterFactory, SqlRowWriter}
-import com.datastax.spark.connector.{AllColumns, ColumnSelector}
+import com.datastax.spark.connector.writer.{ RowWriterFactory, SqlRowWriter }
+import com.datastax.spark.connector.{ AllColumns, ColumnSelector }
 import com.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
 import com.joswlv.spark.cassandra.bulk.rdd._
-import org.apache.spark.sql.{DataFrame, Row}
+import org.apache.spark.sql.{ DataFrame, Row }
 
 /**
  * Extension of [[DataFrame]] with [[bulkLoadToCass()]] function.
@@ -31,12 +31,11 @@ class SparkCassDataFrameFunctions(dataFrame: DataFrame) extends Serializable {
    * @param sparkCassWriteConf Configurations connection
    */
   def bulkLoadToCass(
-                      keyspaceName: String,
-                      tableName: String,
-                      columns: ColumnSelector = AllColumns,
-                      sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))
-                    (implicit connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
-                     rwf: RowWriterFactory[Row] = SqlRowWriter.Factory): Unit = {
+    keyspaceName: String,
+    tableName: String,
+    columns: ColumnSelector = AllColumns,
+    sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
+      rwf: RowWriterFactory[Row] = SqlRowWriter.Factory): Unit = {
 
     dataFrame.rdd.bulkLoadToCass(keyspaceName, tableName)
   }
