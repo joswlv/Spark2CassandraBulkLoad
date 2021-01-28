@@ -64,7 +64,7 @@ case class SparkCassWriteConf(
       toRegularColDef(timestamp, DataType.bigint())).flatten
   }
 
-  val throttlingEnabled = throughputMiBPS < SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_THROUGHPUT_MB_PER_SEC.default
+  val throttlingEnabled: Boolean = throughputMiBPS < SparkCassWriteConf.SPARK_CASSANDRA_BULK_WRITE_THROUGHPUT_MB_PER_SEC.default
 }
 
 object SparkCassWriteConf {
@@ -102,7 +102,7 @@ object SparkCassWriteConf {
     default = 9042)
 
   val SPARK_CASSANDRA_BULK_WRITE_TTL = SparkCassConfParam[Int](
-    name = "spark.cassandra.bulk.write.ttl",
+    name = "spark.cassandra.output.ttl",
     default = Integer.MAX_VALUE)
 
   /**

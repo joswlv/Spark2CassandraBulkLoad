@@ -19,7 +19,6 @@ import org.apache.cassandra.io.sstable.{ CQLSSTableWriter, SSTableLoader }
 import org.apache.cassandra.utils.OutputHandler
 import org.apache.commons.io.FileUtils
 import org.apache.hadoop.conf.Configuration
-import org.apache.spark.TaskContext
 import org.apache.spark.internal.Logging
 
 import scala.collection.JavaConverters._
@@ -33,6 +32,7 @@ class SparkCassandraBulkWriter[T](
 
   val keyspaceName: String = tableDef.keyspaceName
   val tableName: String = tableDef.tableName
+  val partitionKeyColumns: Seq[String] = tableDef.partitionKey.map(_.columnName)
   val columnNames: Seq[String] = rowWriter.columnNames diff sparkCassWriteConf.optionPlaceholders
   val columns: Seq[ColumnDef] = columnNames.map(tableDef.columnByName)
 
@@ -191,7 +191,7 @@ class SparkCassandraBulkWriter[T](
     }
   }
 
-  def write(taskContext: TaskContext, data: Iterator[T]): Unit = {
+  def write(data: Iterator[T]): Unit = {
     val tempSSTableDirectory = prepareSSTableDirectory()
 
     logInfo(s"Created temporary file directory for SSTables at ${tempSSTableDirectory.getAbsolutePath}.")
@@ -206,7 +206,7 @@ class SparkCassandraBulkWriter[T](
       logInfo(s"Finished stream of SSTables from ${tempSSTableDirectory.getAbsolutePath}.")
     } finally {
       // retry delete files when file was not unlocked another threads yet
-      var loop = 5;
+      var loop = 5
       while (loop > 0) {
         if (tempSSTableDirectory.exists()) {
           try {
@@ -251,7 +251,7 @@ object SparkCassandraBulkWriter {
         s"Collection behaviors (add/remove/append/prepend) are not allowed on collection columns")
   }
 
-  private[cassandra] def checkColumns(table: TableDef, columnRefs: IndexedSeq[ColumnRef]) = {
+  private[cassandra] def checkColumns(table: TableDef, columnRefs: IndexedSeq[ColumnRef]): Unit = {
     val columnNames = columnRefs.map(_.columnName)
     checkMissingColumns(table, columnNames)
     checkMissingPrimaryKeyColumns(table, columnNames)
@@ -269,9 +269,10 @@ object SparkCassandraBulkWriter {
       .getOrElse(throw new SparkCassException(s"Table not found: $keyspaceName.$tableName"))
     val selectedColumns = columnNames.selectFrom(tableDef)
     val optionColumns = sparkCassWriteConf.optionsAsColumns(keyspaceName, tableName)
-    val rowWriter = implicitly[RowWriterFactory[T]].rowWriter(
-      tableDef.copy(regularColumns = tableDef.regularColumns ++ optionColumns),
-      selectedColumns ++ optionColumns.map(_.ref))
+    val rowWriter = implicitly[RowWriterFactory[T]]
+      .rowWriter(
+        tableDef.copy(regularColumns = tableDef.regularColumns ++ optionColumns),
+        selectedColumns ++ optionColumns.map(_.ref))
 
     checkColumns(tableDef, selectedColumns)
     new SparkCassandraBulkWriter[T](connector, tableDef, selectedColumns, rowWriter, sparkCassWriteConf)
