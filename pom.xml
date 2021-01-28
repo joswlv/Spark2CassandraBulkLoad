@@ -6,7 +6,7 @@
 
   <groupId>com.joswlv.spark.cassandra.bulk</groupId>
   <artifactId>Spark2CassandraBulkLoad</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.3</version>
   <packaging>jar</packaging>
 
   <name>Spark2CassandraBulkLoad</name>
@@ -42,12 +42,12 @@
   <properties>
     <java.version>1.8</java.version>
     <scala.version>2.11.12</scala.version>
-    <sccala.binary.version>2.11</sccala.binary.version>
-    <spark.version>[2.0, 3.0)</spark.version>
+    <scala.binary.version>2.11</scala.binary.version>
+    <spark.version>[2.0, 2.5)</spark.version>
     <spark.test.version>[2.0_0.12.0, 3.0)</spark.test.version>
     <scala.test.version>3.1.0-RC1</scala.test.version>
-    <cassandra.all.version>[3.0, 4.0)</cassandra.all.version>
-    <cassandra.util.version>[3.0, 4.0)</cassandra.util.version>
+    <cassandra.all.version>[3.0, 3.99)</cassandra.all.version>
+    <cassandra.util.version>[3.0, 3.99)</cassandra.util.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -143,13 +143,21 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <rulesUri>file:///${project.basedir}/maven-version-rules.xml</rulesUri>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_${sccala.binary.version}</artifactId>
+      <artifactId>spark-core_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
       <exclusions>
@@ -166,15 +174,22 @@
 
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_${sccala.binary.version}</artifactId>
+      <artifactId>spark-sql_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.datastax.spark</groupId>
-      <artifactId>spark-cassandra-connector_${sccala.binary.version}</artifactId>
+      <artifactId>spark-cassandra-connector_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.cassandra</groupId>
+      <artifactId>cassandra-parent</artifactId>
+      <version>${cassandra.all.version}</version>
+      <type>pom</type>
     </dependency>
 
     <dependency>
@@ -187,11 +202,12 @@
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
       <version>2.11.12</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_${sccala.binary.version}</artifactId>
+      <artifactId>spark-core_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
       <scope>test</scope>
       <exclusions>
@@ -209,7 +225,7 @@
 
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_${sccala.binary.version}</artifactId>
+      <artifactId>spark-sql_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
       <scope>test</scope>
       <classifier>tests</classifier>
@@ -217,7 +233,7 @@
 
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-catalyst_${sccala.binary.version}</artifactId>
+      <artifactId>spark-catalyst_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
       <scope>test</scope>
       <classifier>tests</classifier>
@@ -225,14 +241,14 @@
 
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_${sccala.binary.version}</artifactId>
+      <artifactId>scalatest_${scala.binary.version}</artifactId>
       <version>${scala.test.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.scalactic</groupId>
-      <artifactId>scalactic_${sccala.binary.version}</artifactId>
+      <artifactId>scalactic_${scala.binary.version}</artifactId>
       <version>${scala.test.version}</version>
     </dependency>
 

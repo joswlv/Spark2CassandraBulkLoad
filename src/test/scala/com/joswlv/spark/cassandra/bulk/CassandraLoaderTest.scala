@@ -29,7 +29,9 @@ class CassandraLoaderTest extends FunSuite with SharedSparkSession {
   }
 
   private def getInputData(sampleFileName: String): DataFrame = {
-    spark.read.csv(getClass.getResource(s"/$sampleFileName").getPath)
+    spark.read
+      .option("header", "true")
+      .csv(getClass.getResource(s"/$sampleFileName").getPath)
   }
 
   private def bulkLoadAndCompare(keyspace: String, table: String, sampleFileName: String): Unit = {
@@ -39,7 +41,7 @@ class CassandraLoaderTest extends FunSuite with SharedSparkSession {
   }
 
   private def checkCassandraData(keyspace: String, table: String, expectedCount: Int): Unit = {
-    val result = cassandraSession.execute(s"select * from ${keyspace}.${table}")
+    val result = cassandraSession.execute(s"select * from $keyspace.$table")
     assertResult(expectedCount) {
       result.all().size()
     }
@@ -53,6 +55,23 @@ class CassandraLoaderTest extends FunSuite with SharedSparkSession {
     val keyspace = "test"
     val table = "rdd_row"
     val rowRDD = getInputData("simple_data.csv").rdd
+    rowRDD.bulkLoadToCass(keyspace, table)
+    checkCassandraData(keyspace, table, rowRDD.count().toInt)
+  }
+
+  test("row type with schema rdd test") {
+    val keyspace = "test"
+    val table = "rdd_row"
+    val rowRDD = getInputData("simple_data.csv")
+      .toDF("id", "date", "value").rdd
+    rowRDD.bulkLoadToCass(keyspace, table)
+    checkCassandraData(keyspace, table, rowRDD.count().toInt)
+  }
+
+  test("row type with schema rdd diff order test") {
+    val keyspace = "test"
+    val table = "rdd_row"
+    val rowRDD = getInputData("simple_data2.csv").rdd
     rowRDD.bulkLoadToCass(keyspace, table)
     checkCassandraData(keyspace, table, rowRDD.count().toInt)
   }

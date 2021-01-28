@@ -3,8 +3,8 @@ package com.joswlv.spark.cassandra.bulk.sql
 import com.datastax.spark.connector.cql.CassandraConnector
 import com.datastax.spark.connector.writer.{ RowWriterFactory, SqlRowWriter }
 import com.datastax.spark.connector.{ AllColumns, ColumnSelector }
-import com.joswlv.spark.cassandra.bulk.SparkCassandraBulkWriter
 import com.joswlv.spark.cassandra.bulk.conf.SparkCassWriteConf
+import com.joswlv.spark.cassandra.bulk.rdd._
 import org.apache.spark.sql.{ DataFrame, Row }
 
 /**
@@ -35,14 +35,8 @@ class SparkCassDataFrameFunctions(dataFrame: DataFrame) extends Serializable {
     tableName: String,
     columns: ColumnSelector = AllColumns,
     sparkCassWriteConf: SparkCassWriteConf = SparkCassWriteConf.fromSparkConf(internalSparkContext.getConf))(implicit connector: CassandraConnector = CassandraConnector(internalSparkContext.getConf),
-                                                                                                             rwf: RowWriterFactory[Row] = SqlRowWriter.Factory): Unit = {
-    val sparkCassandraBulkWriter = SparkCassandraBulkWriter(
-      connector,
-      keyspaceName,
-      tableName,
-      columns,
-      sparkCassWriteConf)
+      rwf: RowWriterFactory[Row] = SqlRowWriter.Factory): Unit = {
 
-    internalSparkContext.runJob(dataFrame.rdd, sparkCassandraBulkWriter.write _)
+    dataFrame.rdd.bulkLoadToCass(keyspaceName, tableName)
   }
 }

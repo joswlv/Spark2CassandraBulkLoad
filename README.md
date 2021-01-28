@@ -17,9 +17,9 @@ Upgrade utility(spark, cassandra) version.
 
 Spark2CassandraBulkLoad supports Spark 2.x and above.
 
-| Spark2CassandraBulkLoad Version | Cassandra Version | JDK Version |
-| ------------------------| ----------------- | ----------- |
-| `1.X.X`                 | `3.0.0+`          | 1.8+        |
+| Spark2CassandraBulkLoad Version | Spark Cassandra connector Version | Cassandra Java Driver Version | JDK Version |
+| ------------------------| ----------------- | ----- | ----------- |
+| `1.X.X`                 | `[2.0, 2.5)`          | `[,4.0)` | `1.8+`        |
 
 ## Downloads
 
