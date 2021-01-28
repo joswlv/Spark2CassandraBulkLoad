@@ -1,11 +1,10 @@
 package com.joswlv.spark.cassandra.bulk
 
-import java.net.InetAddress
-
 import org.apache.cassandra.streaming.StreamEvent._
 import org.apache.cassandra.streaming.{ SessionInfo, StreamEvent, StreamEventHandler, StreamState }
 import org.slf4j.Logger
 
+import java.net.InetAddress
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
@@ -16,6 +15,7 @@ import scala.collection.mutable
  * @param log A [[Logger]] to write progress.
  */
 class SparkCassStreamEventHandler(log: Logger) extends StreamEventHandler {
+
   class SessionHostMap extends mutable.HashMap[InetAddress, mutable.Set[SessionInfo]]
     with mutable.MultiMap[InetAddress, SessionInfo]
 

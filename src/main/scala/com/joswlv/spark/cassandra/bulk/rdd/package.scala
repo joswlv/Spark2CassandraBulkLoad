@@ -2,7 +2,6 @@ package com.joswlv.spark.cassandra.bulk
 
 import org.apache.spark.rdd.RDD
 
-import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
 package object rdd {

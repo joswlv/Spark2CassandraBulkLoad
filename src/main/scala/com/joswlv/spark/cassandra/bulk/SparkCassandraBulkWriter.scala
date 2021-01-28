@@ -1,9 +1,5 @@
 package com.joswlv.spark.cassandra.bulk
 
-import java.io.File
-import java.net.InetAddress
-import java.util.UUID
-
 import com.datastax.driver.core.PreparedStatement
 import com.datastax.spark.connector.cql.{ CassandraConnector, ColumnDef, Schema, TableDef }
 import com.datastax.spark.connector.types.ColumnType
@@ -21,6 +17,9 @@ import org.apache.commons.io.FileUtils
 import org.apache.hadoop.conf.Configuration
 import org.apache.spark.internal.Logging
 
+import java.io.File
+import java.net.InetAddress
+import java.util.UUID
 import scala.collection.JavaConverters._
 
 class SparkCassandraBulkWriter[T](

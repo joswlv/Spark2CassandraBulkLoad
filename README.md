@@ -1,6 +1,8 @@
 # Spark2CassandraBulkLoad
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjoswlv%2FSpark2CassandraBulkLoad)](https://hits.seeyoufarm.com)[![Build Status](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjoswlv%2FSpark2CassandraBulkLoad)](https://hits.seeyoufarm.com)
+[![Build Status](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master)](https://travis-ci.org/joswlv/Spark2CassandraBulkLoad.svg?branch=master) 
+[ ![Download](https://api.bintray.com/packages/joswlv/spark-utils/Spark2CassandraBulkLoad/images/download.svg?version=1.0.3) ](https://bintray.com/joswlv/spark-utils/Spark2CassandraBulkLoad/1.0.3/link)
 
 Spark Library for Bulk Loading into Cassandra
 

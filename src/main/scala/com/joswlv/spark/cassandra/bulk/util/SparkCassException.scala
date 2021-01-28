@@ -7,7 +7,7 @@ package com.joswlv.spark.cassandra.bulk.util
  * @param cause   the cause (which is saved for later retrieval by the
  *                { @link #getCause()} method).  (A <tt>null</tt> value is
  *                permitted, and indicates that the cause is nonexistent or
- *              unknown.)
+ *                unknown.)
  */
 class SparkCassException(message: String, cause: Throwable) extends RuntimeException(message, cause) with Serializable {
   def this() = this(null, null)
